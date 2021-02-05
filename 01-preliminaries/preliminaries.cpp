@@ -171,9 +171,9 @@ void arrays()
     // size determined implicitly from initialization list
     int entries[] = {6,1,8,9,23};
     char course_name[] = "DSA2021";
-    printf("Number of elements in array [entries] = %d\n",sizeof(entries)/sizeof(int));
-    printf("Number of characters in array [course_name] = %d\n",sizeof(course_name)/sizeof(char));
-        int j = 0;
+    printf("Number of elements in array [entries] = %d\n",sizeof(entries)/sizeof(entries[0]));
+    printf("Number of characters in array [course_name] = %d\n",sizeof(course_name)/sizeof(course_name[0]));
+    int j = 0;
     while (course_name[j] != '\0')
         ++j;
     printf("\nIndex of NUL character in [course_name] array=%d\n",j);
@@ -261,8 +261,9 @@ void arrays()
     int myarr_2[5];
     int myarr[3] = {3,4,5};
     int *pt = myarr; // pt points at myarr[0]'s memory location
-    int *pt2 = &myarr[1]; // pt points at myarr[1]'s memory location
-    printf("\n Freeing pt ...\n");
+    int *pt2 = &myarr[1]; // pt2 points at myarr[1]'s memory location
+
+    printf("\n Freeing pt to see what happens ...\n");
     free(pt); 
 
     int x = 10;
@@ -273,11 +274,16 @@ void arrays()
     int (* threePtr)[3] = &myarr; // threePtr can ONLY point at arrays with 3 ints in them
 
     // ADVANCED //
-    // Some general clarifications
+    // Examples of possible declarations
+    // Rule of thumb: 
+    /// (0) <variable-name> is ..... <data-type>
+    /// (1) Alternate between going right and left
+    /// (2) Go right when you can, go left when you must !
     int *r[5];       // r is a 5-sized array of pointer to int
     int (*s)[4];     // s is a pointer to 4-sized array of int
     int (*t[8])[5];  // t is a 8-sized array of pointers to 5-sized array of int
     // Reference : https://cdecl.org/
+    // 
 }
 
 void arrays_2d()
@@ -322,8 +328,7 @@ void modify_array_func_1(int *x,int n)
         x[i] = i*i;
 }
 
-// Below code will not compile because function body
-// attempts to modify the value of a const parameter
+// Below code will not compile. Why ?
 /*
 void modify_array_func_2(const int *x,int n)
 {
