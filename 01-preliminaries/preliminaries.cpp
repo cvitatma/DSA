@@ -133,12 +133,14 @@ void pointers()
     printf("\nBefore: %c ",*p);
     *p = 'm'; // OK - Changing value stored in ch2 via pointer dereferencing
     printf("After: %c \n",*p);
+    printf("Address stored in variable p = %p\n",p);
+    printf("Address of variable p = %p\n",&p);
+    pause();
 
     const char* ptr2const = NULL;
     ptr2const = &ch;
     //*ptr2const = 'd'; // ERROR : ptr2const cannot be used to modify content it points to
     ptr2const = "DSA"; // OK - points to a non-modifiable content
-
 
     //char* const constPtr; // ERROR : Constant pointer has to be initialized during declaration
     char* const constPtr = &ch;
@@ -148,7 +150,7 @@ void pointers()
     // Q: How to have a pointer which points to a fixed location
     // and cannot be used to change the value at that location ?
     // (Hint: Combine the two const ideas above)
-
+    
 }
 
 void arrays()
@@ -230,8 +232,9 @@ void arrays()
     for(int i = 0 ; i < num_elems ; i++)
         p[i] = i*i;
     printf("[Pointer-based]Addressing: p:%p &p[0]:%p\n",(void*)p,(void*)&p[0]);
-    printf("[Pointer-based]Indexing: p[2]:%d *(p+2):%d *(&p[0] +2):%d\n",p[2],*(p+2),*(&p[0]+2)); 
+    printf("[Pointer-based]Indexing: p[2]:%d *(p+2):%d *(&p[0] +2):%d\n",p[2],*(p+2),*(&p[0]+2));     
     free(p); // Don't forget !
+    
 
     // calloc: allocate and set array values to 0 
     int *zeroed_p = (int *)calloc(num_elems,sizeof(int)); 
@@ -268,8 +271,7 @@ void arrays()
 
     int x = 10;
     pt = &x;         // OK. pt now points at x's memory location
-    
-    
+        
     // Pointer to an ENTIRE array in strict sense, i.e. not just first element
     int (* threePtr)[3] = &myarr; // threePtr can ONLY point at arrays with 3 ints in them
 
@@ -313,6 +315,8 @@ void arrays_2d()
 // name: sample_func
 // return type: int
 // parameters: param_1, param_2
+// param_1 is a copy of a floating point value
+// param_2 is a "copy" of an address value
 int sample_func(float param_1, int* param_2) // header
 {
     // body of function
@@ -320,6 +324,14 @@ int sample_func(float param_1, int* param_2) // header
     *param_2 = (int)(param_1/10);
 
     return (int)(absurd_mix);
+}
+
+// char* is ambiguous - can be array address or char address
+// need to clarify in documentation
+int sample_func_2(float param_1, char* param_2) 
+{
+    // body of function    
+    return (int)(param_1 + param_2[0]);
 }
 
 void modify_array_func_1(int *x,int n)
@@ -372,6 +384,9 @@ void functions()
     printf("\nBefore:d=%d ",d);
     int func_v = sample_func(f,&d);
     printf("After:d=%d ",d);
+    pause();
+    // Is the code below ok ?
+    sample_func_2(300,"iiit-h");
     pause();
 
     // Passing arrays to function
