@@ -107,7 +107,6 @@ void pointers()
     
     pause();
 
-
     char* p; // A pointer variable - Stores address of an associated data type variable
     char ch = 'a';
     p = &ch;
