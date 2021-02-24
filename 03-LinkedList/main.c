@@ -22,14 +22,6 @@ int main()
 	InsertAtFront(&L,20);
 	InsertAtFront(&L,30);
 
-	PrintList(L);
-	
-	/*
-	EmptyList(&L);
-	if(L)
-		free(L);
-	*/
-
 	//DeleteList(&L);
 	
 	return 0;

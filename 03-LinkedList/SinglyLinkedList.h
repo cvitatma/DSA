@@ -22,15 +22,15 @@ PtrToNode MakeNode(ElementType X);
 
 List CreateEmptyList(); // Creates an empty list with header node
 void CreateEmptyList1(List* PP); // Creates an empty list with header node
-void CreateEmptyList2(List PP); // Does not work !
+void CreateEmptyList2(List PP); // Does not work as intended !
 
 void InsertAtFront(List* LP,ElementType X);
-void InsertAtRear(List* LP,ElementType X);
+void InsertAtRear(List* LP,ElementType X); // TODO
 
 void DeleteNode(PtrToNode P);
-void DeleteList(List* LP);
-void EmptyList(List* LP);
+void DeleteList(List* LP); // TODO
+void EmptyList(List* LP); // TODO
 
-void PrintList(List P);
+void PrintList(List P); // TODO
 
 #endif
