@@ -41,12 +41,9 @@ void InsertAtFront(List* LP,ElementType X)
     PtrToNode PNew = MakeNode(X);
     List L = *LP;
     
-    if(L->Next == NULL)          
-        L->Next = PNew;        
-    else {
-        PNew->Next = L->Next;
-        L->Next = PNew;        
-    }
+    PNew->Next = L->Next;
+    L->Next = PNew;        
+
 }
 
 void DeleteNode(PtrToNode P)
