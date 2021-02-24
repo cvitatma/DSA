@@ -25,6 +25,7 @@ void CreateEmptyList1(List* PP); // Creates an empty list with header node
 void CreateEmptyList2(List PP); // Does not work as intended !
 
 void InsertAtFront(List* LP,ElementType X);
+void InsertAtFront_v2(List L,ElementType X); //TODO: Simpler - can have this version if we use header-based linked lists
 void InsertAtRear(List* LP,ElementType X); // TODO
 
 void DeleteNode(PtrToNode P);
