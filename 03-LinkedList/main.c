@@ -18,9 +18,13 @@ int main()
 	//L = CreateEmptyList();
 
 	// Insert item at front of list	
-	InsertAtFront(&L,10);
+	/* InsertAtFront(&L,10);
 	InsertAtFront(&L,20);
-	InsertAtFront(&L,30);
+	InsertAtFront(&L,30); */
+
+	InsertAtFront_v2(L,10);
+	InsertAtFront_v2(L,20);
+	InsertAtFront_v2(L,30);
 
 	//DeleteList(&L);
 	
