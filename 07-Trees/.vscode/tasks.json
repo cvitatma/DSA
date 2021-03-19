@@ -1,0 +1,26 @@
+        {
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "GNU gcc build active file",
+            "command": "/usr/local/bin/gcc-10",
+            "args": [
+                "-g",
+                "${cwd}/*.c",
+                "${cwd}/*.h",
+                "-o",
+                "Stack"
+                /*"${fileDirname}/${fileBasenameNoExtension}"*/
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "compiler: /usr/local/bin/gcc-10"
+        }
+    ],
+    "version": "2.0.0"
+}
