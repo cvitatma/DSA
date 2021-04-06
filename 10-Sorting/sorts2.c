@@ -65,3 +65,48 @@ void CountSort(ElemTypePtr A,int n,int k)
         A[i] = B[i]; 
 }
 
+void RadixCountSort(ElemTypePtr A,int n,int pwr_ten)
+{
+    int i;
+    unsigned long int count[10]; // [0..9]    
+    ElementType B[n];
+
+    for(i=0;i<10;i++)
+        count[i] = 0;
+
+    for(i=0;i<n;i++) {
+        ++count[ (A[i]/pwr_ten) % 10];
+        B[i] = 0;
+    }
+    
+    for(i=1;i<10;i++)
+        count[i] = count[i] + count[i-1];
+    
+    for(i= n -1; i >= 0 ; i--)
+    {
+        --count[(A[i]/pwr_ten) % 10];
+        B[count[(A[i]/pwr_ten) % 10]] = A[i];
+        PrintArray(B,n);
+    }
+
+    for(i=0;i< n ;i++)
+        A[i] = B[i]; 
+}
+
+void RadixSort(ElemTypePtr A,int n)
+{
+    int pwr_ten;
+    ElementType max_elem = A[0];    
+    for(int i = 0 ; i < n ; i++)
+        if (A[i] > max_elem)
+            max_elem = A[i];
+    
+    // Loop as many times as the digits in the maximum element
+    pwr_ten = 1;
+    while( max_elem / pwr_ten > 0)
+    {
+        RadixCountSort(A,n,pwr_ten);
+        pwr_ten *= 10;
+    }
+        
+}
