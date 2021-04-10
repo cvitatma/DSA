@@ -1,11 +1,80 @@
 #include "sorts.h"
 
-void swap(ElemTypePtr a,ElemTypePtr b)
+void swap_array_elems(ElemTypePtr A,int i,int j)
 {
-	ElementType tmp;
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
+    ElementType tmp;
+
+    tmp = A[i];
+    A[i] = A[j];
+    A[j] = tmp;
+}
+
+// QUICKSORT  
+void QuickSort(ElemTypePtr A, int nElems)
+{
+    QuickSortDriver(A,0,nElems-1);
+}
+
+void QuickSortDriver(ElemTypePtr A, int lower, int upper)
+{
+    int pivotIdx;
+    if(lower < upper)
+    {
+        pivotIdx = QPartition(A,lower,upper);
+	// After every partition, pivot is its correct sorted place
+        QuickSortDriver(A,lower,pivotIdx-1);
+        QuickSortDriver(A,pivotIdx+1,upper);
+    }
+}
+
+
+int QPartition(ElemTypePtr A,int lower,int upper)
+{
+
+    int pivot_value;
+    int left_end;
+    int i;
+    ElementType tmp;
+
+    pivot_value = A[upper];
+    // TODO: Pick pivot value using some good strategy (median of 3 randomly chosen elements etc.)
+
+    left_end = lower;
+    for( i = lower ; i < upper ; i++)
+    {
+        if ( A[i] < pivot_value ) 
+        {
+            swap_array_elems(A,i,left_end);           
+            ++left_end;
+        }
+    }
+    swap_array_elems(A,left_end,upper);
+
+    return left_end;
+}
+
+// Find k-th smallest
+ElementType QuickSelectKth(ElemTypePtr A,int lower,int upper, int k)
+{
+    int pivotIdx;
+    int pivotDist = upper-lower+1;
+    int nElems = upper+1; 
+
+    while (lower <= upper)
+    {        
+        pivotIdx = QPartition(A,lower,upper);
+	// After every partition, pivot is its correct sorted place
+	pivotDist = pivotIdx - lower  + 1;
+    	if(pivotDist == k)
+		return A[pivotIdx];
+	else if ( pivotDist > k )
+		upper = pivotIdx - 1;
+	else 
+	{
+		k = k - pivotDist;
+	        lower = pivotIdx + 1;
+	}        
+    }    
 }
 
 // HEAP-SORT
@@ -17,7 +86,7 @@ void DownHeap(ElemTypePtr a,int i,int n)
 		if ( w+1 < n )
 			if ( a[w+1] > a[w] ) w++;
 		if ( a[i] >= a[w] ) return;
-		swap(&a[i],&a[w]);		
+		swap_array_elems(a,i,w);		
 		i = w; // we swapped with this node ; subtree below it may need fixing
 		w =i*2+1; // Get first descendant of 'i' and repeat loop procedure
 	}
@@ -35,7 +104,7 @@ void HeapSort(ElemTypePtr a,int n)
 
 	while( n > 1 ) {		
 		n--;
-		swap(&a[0],&a[n]); 
+		swap_array_elems(a,0,n); 
 		DownHeap(a,0,n);
 	}
 }
